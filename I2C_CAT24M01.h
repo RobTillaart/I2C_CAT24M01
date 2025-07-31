@@ -80,7 +80,7 @@ public:
 
   //  Meta data functions
   uint32_t getDeviceSize();
-  uint8_t  getPageSize();
+  uint16_t getPageSize();
   uint32_t getLastWrite();
 
 
