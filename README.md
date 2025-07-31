@@ -1,0 +1,2 @@
+# CAT24M01
+Library for CAT24M01 1Mbit I2C EEPROM.
