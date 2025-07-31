@@ -87,7 +87,7 @@ public:
   //  TWR = WriteCycleTime
   //  5 ms is minimum, one can add extra ms here to adjust timing of both read() and write()
   void     setExtraWriteCycleTime(uint8_t ms);
-  uint16_t getExtraWriteCycleTime();
+  uint8_t  getExtraWriteCycleTime();
 
 
   //  WRITEPROTECT
