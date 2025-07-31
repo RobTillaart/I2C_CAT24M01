@@ -16,18 +16,15 @@ Arduino library for CAT24M01 1Mbit I2C EEPROM.
 
 ## Description
 
-This library is to access external CAT24M01 1Mbit  I2C EEPROM.
+This library is to access the external CAT24M01 1Mbit I2C EEPROM.
 
-**Warning** This document is under construction.
-It is based upon the I2C_24LC1025 library so there might be errors not noticed yet.
+This library follows the I2C_EEPROM and I2C_24LC1025 libraries, see links below.
 
-This library follows the I2C_EEPROM library, see links below.
-
-The main difference with the I2C_24LC1025 is the place where the 16 bit of the memory 
-address is put in the device address. 
+The main difference with the I2C_24LC1025 is the place where the 16th bit of the 
+memory address is inserted in the device address. 
 
 The library is not tested (extensively) with hardware yet.
-Feedback, as always is welcome.
+Feedback, as always, is welcome.
 
 
 ### Related
@@ -49,7 +46,7 @@ Feedback, as always is welcome.
 ```
 
 I2C address = 0x50, 0x52, 0x54, 0x56 depending on A1 and A2 address lines.
-The LSB of the I2C address is used for the MSB of the memory address.
+Bit 0 of the I2C address is used for the MSB of the memory address.
 
 Read the datasheet, section device addressing.
 
