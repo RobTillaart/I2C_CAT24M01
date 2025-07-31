@@ -339,15 +339,15 @@ int I2C_CAT24M01::_pageBlock(uint32_t memoryAddress, const uint8_t * buffer, con
 
 void I2C_CAT24M01::_beginTransmission(uint32_t memoryAddress)
 {
-  // chapter 5+6 - datasheet - need three bytes for address
+  //  datasheet CAT24M01 page 7 - need three bytes for address
   _actualAddress = _deviceAddress;
-  if (memoryAddress >= 0x10000) _actualAddress |= 0x04;  // address bit 16
+  if (memoryAddress >= 0x10000) _actualAddress |= 0x01;  //  address bit 16
 
 
   //  Wait until EEPROM gives ACK again.
-  //  this is a bit faster than the hardcoded 5 milliSeconds  // chapter 7
+  //  this is a bit faster than the hardcoded 5 milliSeconds
   //  TWR = WriteCycleTime
-  uint32_t waitTime = I2C_WRITEDELAY + _extraTWR * 1000UL;  // do the math once.
+  uint32_t waitTime = I2C_WRITEDELAY + _extraTWR * 1000UL;  //  do the math once.
   while ((micros() - _lastWrite) <= waitTime)
   {
     _wire->beginTransmission(_actualAddress);
@@ -357,9 +357,9 @@ void I2C_CAT24M01::_beginTransmission(uint32_t memoryAddress)
   }
 
    uint16_t memAddr = (memoryAddress & 0xFFFF);
-  _wire->beginTransmission(_actualAddress);    // device address + bit 16
-  _wire->write((memAddr >> 8) & 0xFF);         // highByte
-  _wire->write(memAddr & 0xFF);                // lowByte
+  _wire->beginTransmission(_actualAddress);    //  device address + address bit 16
+  _wire->write((memAddr >> 8) & 0xFF);         //  highByte
+  _wire->write(memAddr & 0xFF);                //  lowByte
 }
 
 
