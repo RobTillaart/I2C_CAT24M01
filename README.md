@@ -23,6 +23,8 @@ This library follows the I2C_EEPROM and I2C_24LC1025 libraries, see links below.
 The main difference with the I2C_24LC1025 is the place where the 16th bit of the 
 memory address is inserted in the device address. 
 
+Power-up to Ready Mode = 100 usec, so one has to wait 0.1 msec or more before using the EEPROM.
+
 The library is not tested (extensively) with hardware yet.
 Feedback, as always, is welcome.
 
@@ -45,10 +47,31 @@ Feedback, as always, is welcome.
               +-------+
 ```
 
+
+## I2C 
+
 I2C address = 0x50, 0x52, 0x54, 0x56 depending on A1 and A2 address lines.
 Bit 0 of the I2C address is used for the MSB of the memory address.
 
 Read the datasheet, section device addressing.
+
+
+### I2C multiplexing
+
+Sometimes you need to control more devices than possible with the default
+address range the device provides.
+This is possible with an I2C multiplexer e.g. TCA9548 which creates up
+to eight channels (think of it as I2C subnets) which can use the complete
+address range of the device.
+
+Drawback of using a multiplexer is that it takes more administration in
+your code e.g. which device is on which channel.
+This will slow down the access, which must be taken into account when
+deciding which devices are on which channel.
+Also note that switching between channels will slow down other devices
+too if they are behind the multiplexer.
+
+- https://github.com/RobTillaart/TCA9548
 
 
 ## Interface
@@ -73,7 +96,7 @@ Returns true if deviceAddress is found on the bus, false otherwise.
 Optionally one can set the **WP** writeProtect pin. (see section below).
 If the **WP** pin is defined, the default behaviour will be to **not** allow writing.
 - **bool isConnected()** test to see if deviceAddress is found on the bus.
-- **uint8_t getAddress()** returns deviceAddress set in constructor.
+- **uint8_t getAddress()** returns deviceAddress set in the constructor.
 
 
 ### Write functions
